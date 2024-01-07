@@ -109,13 +109,15 @@ grd_get_session_id_from_pid (pid_t pid)
   char *session_id = NULL;
   int res;
 
+#ifdef HAVE_SYSTEMD
   res = sd_pid_get_session (pid, &session_id);
   if (res < 0 && res != -ENODATA)
     {
       g_warning ("Failed to retrieve session information for "
                  "pid %d: %s", (int) pid, strerror (-res));
     }
-
+#endif
+  
   return g_steal_pointer (&session_id);
 }
 
@@ -126,10 +128,12 @@ grd_sd_session_is_graphical (const char *session_id)
   int res;
   g_autofree char *type = NULL;
 
+#ifdef HAVE_SYSTEMD
   res = sd_session_get_type (session_id, &type);
   if (res < 0)
     return FALSE;
-
+#endif
+  
   return g_strv_contains (graphical_session_types, type);
 }
 
@@ -140,10 +144,12 @@ grd_sd_session_is_active (const char *session_id)
   int res;
   g_autofree char *state = NULL;
 
+#ifdef HAVE_SYSTEMD
   res = sd_session_get_state (session_id, &state);
   if (res < 0)
     return FALSE;
-
+#endif
+  
   return g_strv_contains (active_states, state);
 }
 
