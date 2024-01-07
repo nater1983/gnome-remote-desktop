@@ -161,6 +161,7 @@ grd_get_session_id_from_uid (uid_t uid)
   int n_sessions;
   int i;
 
+#ifdef HAVE_SYSTEMD
   n_sessions = sd_uid_get_sessions (uid, 0, &sessions);
 
   for (i = n_sessions; i >= 0; i--)
@@ -174,7 +175,8 @@ grd_get_session_id_from_uid (uid_t uid)
       session_id = sessions[i];
       break;
     }
-
+#endif
+  
   return g_strdup (session_id);
 }
 
