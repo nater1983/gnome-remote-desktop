@@ -21,7 +21,9 @@
 
 #include "grd-daemon-utils.h"
 
+#ifdef HAVE_SYSTEMD
 #include <systemd/sd-login.h>
+#endif
 
 enum
 {
