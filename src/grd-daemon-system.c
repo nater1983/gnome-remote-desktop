@@ -25,7 +25,10 @@
 #include "grd-daemon-system.h"
 
 #include <gio/gunixfdlist.h>
+
+#ifdef HAVE_SYSTEMD
 #include <systemd/sd-login.h>
+#endif
 
 #include "grd-context.h"
 #include "grd-daemon.h"
