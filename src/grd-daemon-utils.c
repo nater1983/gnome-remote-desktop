@@ -20,6 +20,7 @@
 #include "config.h"
 
 #include "grd-daemon-utils.h"
+#include <stdint.h>
 
 #ifdef HAVE_SYSTEMD
 #include <systemd/sd-login.h>
